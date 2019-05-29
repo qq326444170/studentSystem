@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../jquery-3.4.1.min.js">
+    </script>
+</head>
+<body>
+            <!--<input class="bClass" type="button" value="点击我" id="bId ">-->
+            <!--<input type="checkbox" value="1" checked="checked" name="likes">-->
+            <!--<input type="checkbox" value="2" checked="checked" name="likes2">-->
+            <!--<p>wiwiwi</p>-->
+            <!--<ul id="ul1">-->
+                <!--<li>1</li>-->
+                <!--<li>2</li>-->
+                <!--<li>3</li>-->
+                <!--<li>4</li>-->
+            <!--</ul>-->
+            <!--<ul id="ul2">-->
+                <!--<li>1</li>-->
+                <!--<li>2</li>-->
+                <!--<li>3</li>-->
+                <!--<li>4</li>-->
+            <!--</ul>-->
+            <img id="imgId" src="1.jpg" width="960" height="540">
+        <script>
+            $(document).ready(function () {
+                // alert("hello");
+
+                // alert($("#bId")[0]);//通过id查找对象
+                //alert($(".bClass")[0]);//通过class查找对象
+               // alert( $("input,p")[1]);//通过标签名找对象
+            //     var cheAraay=$("[type='checkbox'][checked='checked']");
+            //     alert(cheAraay[0].value+"   "+cheAraay[1].value)
+
+                // var cheArray=$("[name='likes'][checked='checked']");
+                // alert(cheArray.length)
+                // var obj=$("#ul1 li");
+                // alert(obj.length);
+                //找到图片的对象添加事件
+                $("#imgId").mouseleave(function () {
+                    $(this).attr("src","2.jpg");
+                })
+                $("#imgId").mouseenter(function () {
+                    $(this).attr("src","1.jpg");
+                })
+            });
+
+
+
+        </script>
+</body>
+</html>

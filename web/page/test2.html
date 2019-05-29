@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <select id="sid" style="width: 100px" multiple="multiple" >
+        <option value="chengdu">成都</option>
+        <option value="shanghai">上海</option>
+        <option value="shenzhen">深圳</option>
+    </select></p>
+
+        <select id="sid2" multiple="multiple">
+            <option>请先选择第一项</option>
+
+        </select></p>
+
+        请输入你的选择<input type="text" id="divId" onblur="setCheck(),showCheck()">
+
+
+
+    <script type="text/javascript">
+        function setCheck() {
+            //获得文本框对象
+            var wen=document.getElementById("divId");
+            //获取下拉框对象
+            var sel=document.getElementById("sid");
+            //获取option数组，如果option的值和文本值相等就改变下拉框对应的选择
+            var selArray=sel.options;
+            for (var i=0;i<selArray.length;i++){
+                if(selArray[i].value==wen.value){
+                    selArray[i].selected=true;
+                }
+            }
+        }
+        function showCheck() {
+            var str="<option value=\"qingyang\">青羊区</option>\n" +
+                "     <option value=\"jinniu\">金牛区</option>\n" +
+                "      <option value=\"jinjiang\">锦江区</option>";
+            var str2="<option value=\"shang\">上海</option>\n" +
+                "     <option value=\"shang2\">上海2</option>\n" +
+                "      <option value=\"shang3\">上海3</option>";
+            var str3="<option value=\"shen\">深圳</option>\n" +
+                "     <option value=\"shen2\">深圳2</option>\n" +
+                "      <option value=\"shen3\">深圳3</option>";
+            //获得文本框对象
+            var wen=document.getElementById("divId");
+            //得到所有下拉框对象
+            var sel=document.getElementById("sid");
+            var selArray=sel.options;
+            for (var i=0;i<selArray.length;i++){
+                if(selArray[i].selected=true&&wen.value=="chengdu"){
+                    var c=document.getElementById("sid2");
+                    c.innerHTML=str;
+                }
+                if(selArray[i].selected=true&&wen.value=="shanghai"){
+                    var c=document.getElementById("sid2");
+                    c.innerHTML=str2;
+                }
+                if(selArray[i].selected=true&&wen.value=="shenzhen"){
+                    var c=document.getElementById("sid2");
+                    c.innerHTML=str3;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

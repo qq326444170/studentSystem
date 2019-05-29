@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="../jquery-3.4.1.min.js"></script>
+</head>
+<body>
+
+    <div id="divId">
+        <ul>
+            <li id="1">1</li>
+            <li id="2">2</li>
+            <li id="3">3</li>
+            <li id="4">4</li>
+        </ul>
+
+    </div>
+
+        <script>
+
+           var jObj=$("#divId ul").children("#3").next();
+           alert(jObj.attr("id"));
+        </script>
+</body>
+</html>

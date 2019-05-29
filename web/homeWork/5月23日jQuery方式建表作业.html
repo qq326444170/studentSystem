@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../jquery-3.4.1.min.js"></script>
+</head>
+<body>
+        <div align="center">
+            <table id="tId" border="1">
+                <tr><th>商品名</th><th>商品价格</th><th>商品数量</th></tr>
+            </table>
+        </div>
+
+    <script>
+        var jsonArray=[
+            {'proName':'苹果20s','proPrice':'2000','proNum':'60'},
+            {'proName':'华为20s','proPrice':'2500','proNum':'50'},
+            {'proName':'小米20s','proPrice':'2300','proNum':'30'},
+            {'proName':'宏碁电脑','proPrice':'5000','proNum':'40'},
+            {'proName':'华硕电脑','proPrice':'5500','proNum':'70'},
+            {'proName':'小米电脑','proPrice':'4300','proNum':'20'},
+            {'proName':'TCL电视','proPrice':'4000','proNum':'10'},
+            {'proName':'创维电视','proPrice':'4500','proNum':'15'},
+            {'proName':'小米电视','proPrice':'4100','proNum':'25'}
+
+        ];
+            for(var i=0;i<jsonArray.length;i++){
+                //找到表的对象
+                    $("#tId").append("<tr id="+(i+1)+">"+"<td>"+jsonArray[i].proName+"</td>>"+
+                    "<td>"+jsonArray[i].proPrice+"</td>"+"<td>"+jsonArray[i].proNum+"</td></tr>")
+            }
+            $("#tId").after("</p>","<input type='number' id='texId'>",
+                "<input type='button' id='butId' value='获取' onclick='getInfo()'>",
+                "<div id='divId' style='border: 1px solid red'></div>");
+            function getInfo() {
+                //先得到文本框的值
+                // var texVal=$("#texId")[0].value;
+                // var tdArray=$("#"+texVal+" td");
+                // for(var i=0;i<tdArray.length;i++){
+                //     var str = tdArray[i].textContent+"   "
+                //     if(i==tdArray.length-1){
+                //         str += "</p>"
+                //     }
+                //     $("#divId").append(str);
+                // }
+                //jQuery的遍历输出
+                var texVal=$("#texId")[0].value;
+                $("#"+texVal+" td").each(function (i,el) {
+                    // alert($(this).text());
+                    alert("第"+i+"：内容是"+el.textContent)
+                })
+            }
+    </script>
+
+</body>
+</html>

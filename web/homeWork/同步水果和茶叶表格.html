@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div style="border: 1px solid red">
+    商品名称：
+        <select name="proName">
+        <option value="apple">苹果</option>
+        <option value="kuTea">苦荞茶</option>
+    </select></p>
+    商品类型：
+        <select name="proType">
+        <option value="fruits">水果</option>
+        <option value="tea">茶叶</option>
+    </select></p>
+    商品数量：<input type="text" name="proNum"/></p>
+    商品价格：<input type="text" name="proPrice"/></p>
+    商品进货渠道：
+    线上<input type="radio" name="proWay" value="sky">
+    线下<input type="radio" name="proWay" value="land"></p>
+    商品销售群体：
+    60后<input type="checkbox" name="proMan" value="60s">
+    70后<input type="checkbox" name="proMan" value="70s">
+    80后<input type="checkbox" name="proMan" value="80s">
+    90后<input type="checkbox" name="proMan" value="90s" checked="checked"></p>
+        <input type="button" value="提交" onclick="setSelected()">
+    </div>
+    </p>
+    <div style="border: 1px solid black">
+        商品名称：
+        <select name="proName1">
+            <option value="apple">苹果</option>
+            <option value="kuTea">苦荞茶</option>
+        </select></p>
+        商品类型：
+        <select name="proType1">
+            <option value="fruits">水果</option>
+            <option value="tea">茶叶</option>
+        </select></p>
+        商品数量：<input type="text" name="proNum1"/></p>
+        商品价格：<input type="text" name="proPrice1"/></p>
+        商品进货渠道：
+        线上<input type="radio" name="proWay1" value="sky">
+        线下<input type="radio" name="proWay1" value="land"></p>
+        商品销售群体：
+        60后<input type="checkbox" name="proMan1" value="60s">
+        70后<input type="checkbox" name="proMan1" value="70s">
+        80后<input type="checkbox" name="proMan1" value="80s">
+        90后<input type="checkbox" name="proMan1" value="90s">
+    </div>
+    <script type="text/javascript">
+        function setSelected() {
+            var jsonStr="{";
+            //获取第一个div中的商品名称对象中的所有option
+            var proNameArray=document.getElementsByName("proName")[0].options;
+            //判断选中的option，就取value然后组装进json字符串中
+            for(var i=0;i<proNameArray.length;i++){
+                if(proNameArray[i].selected==true){
+                    jsonStr+="'proName':'"+proNameArray[i].value+"',"
+                }
+            }
+            //获取第一个div中的商品类型对象中的所有option
+            var proTypeArray=document.getElementsByName("proType")[0].options;
+            //判断选中的option，就取value然后组装进json字符串中
+            for(var i=0;i<proTypeArray.length;i++){
+                if(proTypeArray[i].selected==true){
+                    jsonStr+="'proType':'"+proTypeArray[i].value+"',";
+                }
+            }
+            //获取商品数量的val
+            var sumVal=document.getElementsByName("proNum")[0].value;
+            jsonStr+="'proNum':'"+sumVal+"',";
+            //获取商品价格的val
+            var priceVal=document.getElementsByName("proPrice")[0].value;
+            jsonStr+="'proPrice':'"+priceVal+"',";
+            //获取渠道的对象
+            var proWayAraay=document.getElementsByName("proWay");
+            for (var i=0;i<proWayAraay.length;i++){
+                if(proWayAraay[i].checked==true){
+                    jsonStr+="'proWay':'"+proWayAraay[i].value+"',";
+                }
+            }
+            //获得商品销售群体对象
+            var proManAraay=document.getElementsByName("proMan");
+            jsonStr+="'proMan':[";
+            for(var i=0;i<proManAraay.length;i++){
+                if(proManAraay[i].checked==true){
+                    jsonStr+="{'proMan':'"+proManAraay[i].value+"'},";
+                }
+            }
+
+
+
+            var jsonFianlStr=jsonStr.substring(0,jsonStr.length-1);
+            jsonFianlStr+="]}";
+            alert(jsonFianlStr);
+            var strJosnZ = eval("("+jsonFianlStr+")");
+            showSelected(strJosnZ);
+        }
+
+        function showSelected(strJosnZ) {
+            //获取第二个页面的商品名称下拉框对象
+            var proName1Array=document.getElementsByName("proName1")[0].options;
+            for(var i=0;i<proName1Array.length;i++){
+                if(proName1Array[i].value==strJosnZ.proName){
+                    proName1Array[i].selected=true;
+                }
+            }
+            //获取第二个页面的商品类型下拉框对象
+            var proType1Array=document.getElementsByName("proType1")[0].options;
+            for(var i=0;i<proType1Array.length;i++){
+                if(proType1Array[i].value==strJosnZ.proType){
+                    proType1Array[i].selected=true;
+                }
+            }
+            //获取第二个页面的数量文本框对象
+            var proNum1=document.getElementsByName("proNum1");
+            proNum1[0].value=strJosnZ.proNum;
+            //获取第二个页面的价格文本框对象
+            var proPrice1=document.getElementsByName("proPrice1");
+            proPrice1[0].value=strJosnZ.proPrice;
+            //获取第二个页面的单选框对象
+            var proWay1Araay=document.getElementsByName("proWay1");
+            for(var i=0;i<proWay1Araay.length;i++){
+                if(strJosnZ.proWay==proWay1Araay[i].value){
+                    proWay1Araay[i].checked=true;
+                }
+            }
+            //获取第二个页面的商品销售群体
+            var proManArray2=document.getElementsByName("proMan1");
+            var proManArray1=strJosnZ.proMan;
+            for (var i=0;i<proManArray1.length;i++){
+                for(var j=0;j<proManArray2.length;j++){
+                   if(proManArray1[i].proMan==proManArray2[j].value){
+                       proManArray2[j].checked=true;
+                   }
+                }
+
+            }
+
+        }
+    </script>
+
+</body>
+</html>

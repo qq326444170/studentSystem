@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div>
+        <select style="width: 100px;margin-right: 30px" id="s1" onchange="showCheck(this)"></select>
+        <select style="width: 100px" id="s2"></select>
+    </div>
+        <script type="text/javascript">
+           var aplle=[{'code':1,'ppName':'水果','small':[{'code':101,'smName':'苹果'},{'code':102,'smName':'梨'},{'code':103,'smName':'火龙果'}]},
+               {'code':2,'ppName':'茶叶','small':[{'code':201,'smName':'竹叶青'},{'code':202,'smName':'毛峰'},{'code':203,'smName':'普洱茶'}]}];
+        //填充第一个下拉框
+           var strHtml="";
+            for(var i=0;i<aplle.length;i++){
+                strHtml+="<option value='"+aplle[i].code+"'>"+aplle[i].ppName+"</option>";
+            }
+            document.getElementById("s1").innerHTML=strHtml;
+            function showCheck(obj) {
+                var s1Val="";
+                //通过id找到下拉框1的所有对象，得到选中的对象的val
+                for(var i=0;i<obj.length;i++){
+                    if(obj[i].selected==true){
+                        s1Val=obj[i].value;
+                        break;
+                    }
+                }
+               //遍历大集合，选中和集合中的code一致就取对应的small
+                for (var i=0;i<aplle.length;i++){
+                    if(s1Val==aplle[i].code){
+                        var s2Array=aplle[i].small;
+                    }
+                }
+                var strHtml2="";
+                for(var i=0;i<s2Array.length;i++){
+                    strHtml2+="<option value='"+s2Array[i].code+"'>"+s2Array[i].smName+"</option>";
+                }
+                document.getElementById("s2").innerHTML=strHtml2;
+            }
+           //设置默认
+           var arr1=document.getElementById("s1").options;
+            showCheck(arr1);
+        </script>
+</body>
+</html>

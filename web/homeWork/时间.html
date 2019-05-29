@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <script type="text/javascript">
+    function nowTime() {
+        var d=new Date();
+        var s=d.getSeconds();
+        var m=d.getMinutes();
+        var h=d.getHours();
+        if (s<10){
+            s="0"+s;
+        }
+        if (m<10){
+            m="0"+m;
+        }
+        if (h<10){
+            h="0"+h;
+        }
+        var t=d.getFullYear()+"年"+(d.getMonth()+1)+"月"+d.getDate()+"日"+h+"时"
+            +m+"分"+s+"秒";
+        var y=document.getElementById("bId");
+        y.innerHTML="<h1>"+t+"</h1>";
+    }
+    setInterval(nowTime);
+        </script>
+    <b id="bId"></b>
+</body>
+</html>

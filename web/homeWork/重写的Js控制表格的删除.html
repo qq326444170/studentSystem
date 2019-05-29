@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+        <table id="tId" border="1" style="border: solid red;align-content: center" align="center">
+
+        </table></p>
+        <div align="center">
+        <input type="button" value="删除所选行" onclick="delCheck()">
+        </div>
+        <script>
+            var jsonArray=[{'proName':'红楼梦','proPrice':'35','proNum':'10'},
+                {'proName':'西游记','proPrice':'25','proNum':'20'},
+                {'proName':'金瓶梅','proPrice':'45','proNum':'30'}
+            ];
+            var tableObj=document.getElementById("tId");
+            var newRow=tableObj.insertRow(0);
+            var newCell=newRow.insertCell(0);
+            newCell.innerText="多选";
+            var newCell=newRow.insertCell(1);
+            newCell.innerText="书籍名称";
+            var newCell=newRow.insertCell(2);
+            newCell.innerText="书籍价格";
+            var newCell=newRow.insertCell(3);
+            newCell.innerText="书籍库存";
+            var newCell=newRow.insertCell(4);
+            newCell.innerText="操作";
+            for (var i=0;i<jsonArray.length;i++){
+                //建行用insertRow（）
+                var newRow=tableObj.insertRow(i+1);
+                var newCell=newRow.insertCell(-1);
+                newCell.innerHTML="<input type='checkbox' name='box'>";
+                var newCell=newRow.insertCell(-1);
+                newCell.innerText=jsonArray[i].proName;
+                var newCell=newRow.insertCell(-1);
+                newCell.innerText=jsonArray[i].proPrice;
+                var newCell=newRow.insertCell(-1);
+                newCell.innerHTML="<input type='button' value='+' name='jiaB' style='margin: 10px' onclick='addShit(this)'>"
+                    +"<input type='number' style='width: 35px' readonly='readonly' ondblclick='showValue(this)' value='"+jsonArray[i].proNum+"'>"+
+                    "<input type='button' value='-' name='jianB' style='margin: 10px' onclick='jianShit(this)'>";
+                var newCell=newRow.insertCell(-1);
+                newCell.innerHTML="<a href='javascript:void(0)' onclick='delRow(this)'>删除</a>";
+            }
+            //双击变成可写文本框
+            function showValue(gg) {
+                gg.readOnly=false;
+            }
+            function delRow(a) {
+                var rowObj=a.parentNode.parentNode;
+                rowObj.remove();
+            }
+            function delCheck(){
+                //新建一个数组用于存放所有被选的box
+                var trueArray=new Array();
+                //找到所有复选框的对象
+                var checkArray=document.getElementsByName("box");
+                //判断被选中的复选框，
+                for (var i=0;i<checkArray.length;i++){
+                    if(checkArray[i].checked==true){
+                       trueArray.push(checkArray[i]);
+                    }
+                }
+                for(var i=0;i<trueArray.length;i++){
+                    trueArray[i].parentNode.parentNode.remove();
+                }
+            }
+            //加方法
+            function addShit(adCarry) {
+            var sum=adCarry.nextSibling.value;
+            var num=parseInt(sum);
+                num++;
+                if(num>100){
+                    return;
+                }
+                adCarry.parentNode.innerHTML="<input type='button' value='+' name='jiaB' style='margin: 10px' onclick='addShit(this)'>"
+                    +"<input type='number' style='width: 35px' readonly='readonly' ondblclick='showValue(this)' value='"+num+"'>"+
+                    "<input type='button' value='-' name='jianB' style='margin: 10px' onclick='jianShit(this)'>";
+            }
+            //减方法
+            function jianShit(jianCarry) {
+                var sum=jianCarry.previousSibling.value;
+                var num=parseInt(sum);
+                num--;
+
+                if(num<0){
+                    return;
+                }
+                jianCarry.parentNode.innerHTML="<input type='button' value='+' name='jiaB' style='margin: 10px' onclick='addShit(this)'>"
+                    +"<input type='number'style='width: 35px'  readonly='readonly' ondblclick='showValue(this)' value='"+num+"'>"+
+                    "<input type='button' value='-' name='jianB' style='margin: 10px' onclick='jianShit(this)'>";
+            }
+        </script>
+</body>
+</html>

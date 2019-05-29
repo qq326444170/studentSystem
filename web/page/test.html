@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <div>
+     请输入你的爱好：<input id="omg" type="text" onblur="setCheck()"></p>
+     篮球<input class="rng" type="checkbox" name="篮球" style="margin: 10px">
+     足球<input class="rng" type="checkbox" name="足球" style="margin: 10px">
+     羽毛球<input class="rng" type="checkbox" name="羽毛球" style="margin: 10px">
+     乒乓球<input class="rng" type="checkbox" name="乒乓球" style="margin: 10px"></p>
+            <input type="button" value="提交" onclick="showCheck()">
+        </div>
+        <div style="border: solid red" id="divId"></div>
+        <script type="text/javascript">
+            function setCheck(){
+                //得到文本框的值
+                var omg=document.getElementById("omg");
+                var  omgVal=omg.value;
+                var input1=document.getElementsByName(omgVal);
+                input1[0].checked=true;
+            }
+
+
+            function showCheck() {
+                //得到所有选择
+                var str="";
+                var list=[];
+                var sumRng=document.getElementsByClassName("rng");
+                for (var i=0;i<sumRng.length;i++){
+                    if(sumRng[i].checked==true){
+                        list.push(sumRng[i].name);
+                    }
+                }
+                for (var i=0;i<list.length;i++){
+                    if(i<list.length-1){
+                        str+=list[i]+",";
+                    }
+                    else {
+                        str+=list[i];
+                    }
+                }
+                var divHtml=document.getElementById("divId")
+                divHtml.innerHTML=str;
+            }
+
+        </script>
+</body>
+</html>

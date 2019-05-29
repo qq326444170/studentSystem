@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script type="text/javascript">
+            var newStr="[{'code':1,'proName':'四川'},{'code':2,'proName':'达州'},{'code':3,'proName':'广州'}]";
+            //var jsonStr="[{'userName':'刘阿仁','age':18},{'userName':'刘菲菲','age':19}]";
+            //var jsonObj=eval("("+jsonStr+")");
+
+             //alert(jsonObj[0].userName);
+            var newStr2=eval("("+newStr+")")
+             var strHtml="<select>";
+                for(var i=0;i<newStr2.length;i++){
+                    strHtml+="<option value='"+newStr2[i].code+"'>"+newStr2[i].proName+"</option>";
+                }
+
+
+             strHtml+="</select>";
+            document.write(strHtml);
+    </script>
+</body>
+</html>

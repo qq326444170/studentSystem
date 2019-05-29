@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <div style="border: 1px solid blue">
+            <p align="center" style="font-size: 35px;font-family: 楷体;color: red">烂淘宝首页</p>
+        <table id="tId" align="center" border="1" style="border: 1px solid red">
+        </table>
+        </div>
+        </p>
+        </p>
+        </p>
+        </p>
+        </p>
+        <div style="border: 1px solid red">
+            <p align="center" style="font-size: 35px;font-family: 楷体;color: blue">我的购物车</p>
+            <table id="tId1" align="center" border="1" style="border: 1px solid blue" >
+                <tr>
+                    <th>商品名</th>
+                    <th>商品价格</th>
+                    <th>商品数量</th>
+                    <th>操作</th>
+                </tr>
+            </table>
+        </div>
+        <script>
+            var jsonArray=[
+                {'proName':'苹果20s','proPrice':'2000','proNum':'60'},
+                {'proName':'华为20s','proPrice':'2500','proNum':'50'},
+                {'proName':'小米20s','proPrice':'2300','proNum':'30'},
+                {'proName':'宏碁电脑','proPrice':'5000','proNum':'40'},
+                {'proName':'华硕电脑','proPrice':'5500','proNum':'70'},
+                {'proName':'小米电脑','proPrice':'4300','proNum':'20'},
+                {'proName':'TCL电视','proPrice':'4000','proNum':'10'},
+                {'proName':'创维电视','proPrice':'4500','proNum':'15'},
+                {'proName':'小米电视','proPrice':'4100','proNum':'25'}
+
+            ];
+            var newRow=document.getElementById("tId").insertRow(0);
+            var newCell=newRow.insertCell(0);
+            newCell.innerText="商品名";
+            var newCell=newRow.insertCell(1);
+            newCell.innerText="商品价格";
+            var newCell=newRow.insertCell(2);
+            newCell.innerText="商品数量";
+            var newCell=newRow.insertCell(3);
+            newCell.innerText="操作";
+            for(var i=0;i<jsonArray.length;i++){
+                //创建一个行写表头
+                var newRow=document.getElementById("tId").insertRow(i+1);
+                var newCell=newRow.insertCell(-1);
+                newCell.innerText=jsonArray[i].proName;
+                var newCell=newRow.insertCell(-1);
+                newCell.innerText=jsonArray[i].proPrice;
+                var newCell=newRow.insertCell(-1);
+                newCell.innerText=jsonArray[i].proNum;
+                var newCell=newRow.insertCell(-1);
+                newCell.innerHTML="<input type='button' onclick='add(this)' value='购买'>";
+            }
+
+            function add(shopping) {
+                var index=0;
+                //先得到按键父节点的上一个兄弟节点
+                var sumObj=shopping.parentNode.previousSibling;
+                //得到数量
+                var sum=sumObj.innerText;
+                //点一次少一次
+                sum--;
+                //如果数量为0按钮变灰色
+                if(sum==0){
+                    shopping.disabled=true;
+                }
+                //设置数量
+                sumObj.innerText=sum;
+                //先找到被选中的行对象
+                var rowObj=shopping.parentNode.parentNode;
+                var cellArray=rowObj.cells;
+                //得到被选中的第一个列
+                var firstCell=cellArray[0].innerText;
+                //得到购物车的所有行
+                var isFind=false;
+                var rowsArray2=document.getElementById("tId1").rows;
+                for(var i=0;i<rowsArray2.length;i++){
+                     var cellArray2=rowsArray2[i].cells;
+                     if(cellArray2[0].innerText==firstCell){
+                         isFind=true;
+                         break;
+                     }
+
+                }
+                //如果没有则添加到购物车
+                if(isFind==false){
+                    var newRow=document.getElementById("tId1").insertRow(index+1);
+                    var newCell=newRow.insertCell(-1);
+                    newCell.innerText=cellArray[0].innerText;
+                    var newCell=newRow.insertCell(-1);
+                    newCell.innerText=cellArray[1].innerText;
+                    var newCell=newRow.insertCell(-1);
+                    newCell.innerText="1";
+                    var newCell=newRow.insertCell(-1);
+                    newCell.innerHTML="<input type='button' onclick='delCheck(this)' value='移除'>";
+                }
+                //如果有则只改这个行对象的数量
+                if(isFind==true){
+                    var sum=cellArray2[2].innerText;
+                    sum++;
+                    cellArray2[2].innerText=sum;
+                }
+            }
+            function delCheck(delCheck) {
+                //先找到购物车要删除行的名字
+                var rowObj=delCheck.parentNode.parentNode;
+                var delName=rowObj.cells[0].innerText;
+                //得到购物车要删除的商品的数量
+                var delNum=rowObj.cells[2].innerText;
+                //把要删除的数量转为int类型
+                var num2=parseInt(delNum);
+                //得到第一个表的对象的所有行数组
+                var rowsArray=document.getElementById("tId").rows;
+                for (var i=0;i<rowsArray.length;i++){
+                    //获取每一行的所有列
+                    var cellsArray=rowsArray[i].cells;
+                    //把每一行的第一个列和购物车要删除的名字比较
+                    //如果一样就把该行的数量和删除的商品数量相加
+                    if(cellsArray[0].innerText==delName){
+                        //把该行的数量转为int用于计算
+                        var num=parseInt(cellsArray[2].innerText);
+                        num+=num2;
+                        //再设置进去
+                        cellsArray[2].innerText=num;
+                        cellsArray[3].firstChild.disabled=false;
+                    }
+                }
+                //最后在把购物车要删除行移除
+                rowObj.remove();
+
+            }
+        </script>
+</body>
+</html>
